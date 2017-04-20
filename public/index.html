@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Programming Language Network</title>
+    <script src="assets/lib/d3.v3.min.js"></script>
+    <script src="assets/lib/fuzzy.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+            font: 17px helvetica, sans-serif;
+            background: #353535;
+        }
+
+        .node {
+            cursor: pointer;
+        }
+
+        .background {
+            -webkit-opacity: .20;
+        }
+
+        .hover {
+
+        }
+
+        .link {
+            stroke-width: 0.1;
+        }
+
+        .link.hover {
+            stroke-width: 1.2;
+        }
+
+        .overlay {
+          fill: none;
+          pointer-events: all;
+        }
+
+        text {
+            max-width: 40px;
+            overflow: hidden;
+        }
+
+        .hidden {
+            /*display: none;*/
+        }
+
+        #sidebar {
+            background: rgba(29, 29, 29, 0.93);
+            width: 328px;
+            position: absolute;
+            height: 100%;
+            color: #b3b3b3;
+        }
+
+        #sidebar p {
+            padding: 20px;
+            margin: 0;
+            margin-bottom: 20px;
+        }
+
+        .nodes-info, .edges-info {
+            margin: 0;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        .nodes-info li, .edges-info li {
+            padding: 2px;
+            margin: 0 0 0 15px;
+            list-style: none;
+            font-size: 15px;
+            padding-left: 30px;
+        }
+
+        #sidebar h3 {
+            padding: 10px 15px;
+            margin: 0;
+            color: #fbf0f7;
+        }
+
+        .nodes-info li em {
+            display: inline-block;
+            width: 17px;
+            position: absolute;
+            height: 17px;
+            background: green;
+            margin-left: -25px;
+            border-radius: 50%;
+        }
+
+        .edges-info li em {
+            display: inline-block;
+            width: 20px;
+            position: absolute;
+            height: 3px;
+            margin-top: 8px;
+            background: purple;
+            margin-left: -25px;
+        }
+
+        .search-box {
+          padding: 0 20px 0 20px;
+        }
+        .search {
+          width: 100%;
+          background-color: transparent;
+          border-style: solid;
+          border-width: 0px 0px 1px 0px;
+          border-color: white;
+          color: #b3b3b3;
+          font-size: 15px;
+        }
+    </style>
+</head>
+<body style="height: 100%; overflow: hidden">
+<div id="sidebar">
+    <header>
+        <img src="assets/img/logo.png" alt="Programming Language Network"/>
+        <p>
+            We will use graph layout algorithms to
+
+            visualize the data by detecting relationships between topics through the references given in the
+
+            entries, and the list of authors that has entries in a topic. We will then provide a characterization of
+
+            the topological features of the network such as degree distributions, vulnerabilities, shortest path
+
+            lengths, clustering coefficients, and degree assortativity.
+        </p>
+        <p>
+            Our project consists of three major parts of
+
+            work: crawling through the website and getting entry, topic and author data; visualizing the network
+
+            using graph layout algorithms; and analyzing the network using social network analysis techniques.
+        </p>
+    </header>
+    <h3>Networks Representations</h3>
+    <ul class="nodes-info">
+        <li><em style="background: #FF0066"></em><span>&nbsp;</span><span>Most popular topics in years</span></li>
+        <li><em style="background: #FF6600"></em><span>&nbsp;</span><span>Most popular topics in years</span></li>
+        <li><em style="background: #66FF00"></em><span>&nbsp;</span><span>Most popular topics in years</span></li>
+        <li><em style="background: #0066FF"></em><span>&nbsp;</span><span>Most popular topics in years</span></li>
+        <li><em style="background: #FFFF66"></em><span>&nbsp;</span><span>Most popular topics in years</span></li>
+    </ul>
+</div>
+<div style="height: 100%; overflow: hidden">
+    <img src="assets/img/bubble-transparent.png" width="1120px" height="auto">
+</div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<html>
+
+<body>
+
+<svg height="50" width="900" stroke="black" class="chart">
+<!--<circle r="10" cx="20" cy="20"></circle>-->
+</svg>
+<script src="http://d3js.org/d3.v4.min.js"  charset="utf-8"></script>
+<script>
+    dataset = [
+            [1,2,3],
+            [2,3,4],
+            [3,4,1],
+            [4,1,2],
+    ]
+    colors = [
+            "#F00",
+            "#0F0",
+            "#00F",
+            "#0FF",
+            "#F0F",
+            "#FF0",
+            "#FFF",
+    ]
+    cycle = (function(){
+        cursor = -1
+        return function(){
+            cursor = (cursor + 1) % dataset.length;
+            return dataset[cursor];
+        }
+    })()
+    var svg =  d3.select(".chart")
+    var sc = svg .selectAll("circle");
+    function updateChart(data){
+        var circle = svg .selectAll("circle").data(data, function(d) { return d; });
+        sc = circle;
+        enter = circle.enter()
+        cx = function(d, i){ return d * 60}
+        cy = 30
+        enter.append("circle").attr("fill", function(d,i){return colors[d]}).attr("cx", cx).attr("cy", cy).attr("r", 15)
+
+        circle.exit().remove();
+    }
+    setInterval(function(){
+        data = cycle()
+        updateChart(data);
+        console.log("update", data);
+
+    }, 1000)
+</script>
+</body>
+</html>
