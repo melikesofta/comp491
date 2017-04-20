@@ -2,11 +2,263 @@
 
 <body>
 
-<svg height="50" width="900" stroke="black" class="chart">
-<!--<circle r="10" cx="20" cy="20"></circle>-->
-</svg>
-<script src="http://d3js.org/d3.v3.min.js"  charset="utf-8"></script>
-<script>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script
+        src="https://code.jquery.com/jquery-1.12.4.min.js"
+        integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+        crossorigin="anonymous"></script>
+<script type="text/javascript">
+
+    //Width and height
+    var w = 500;
+    var h = 300;
+    var diameter = 500;
+    var COUNTER = 30;
+
+    var insanlar = [
+        {
+
+            name: "x1", id: 1,
+            value: function (x) {
+                return x
+            }
+        },
+        {
+            name: "x2", id: 2,
+            value: function (x) {
+                return x - 1
+            }
+        },
+        {
+            name: "x3", id: 3,
+            value: function (x) {
+                return x + 1
+            }
+        },
+        {
+            name: "x4", id: 4,
+            value: function (x) {
+                return x * 2
+            }
+        },
+        {
+            name: "x5", id: 5,
+            value: function (x) {
+                return x * 2
+            }
+        },
+        {
+            name: "x6", id: 6,
+            value: function (x) {
+                return x / 2
+            }
+        },
+        {
+            name: "x7", id: 7,
+            value: function (x) {
+                return x * 2
+            }
+        },
+        {
+            name: "x8", id: 8,
+            value: function (x) {
+                return x * 2
+            }
+        },
+        {
+            name: "x9", id: 9,
+            value: function (x) {
+                return x - 10
+            }
+        },
+        {
+            name: "x10", id: 10,
+            value: function (x) {
+                return x - 10
+            }
+        },
+        {
+            name: "x11", id: 11,
+            value: function (x) {
+                return 5 * (x - 40)
+            }
+        },
+        {
+            name: "x12", id: 12,
+            value: function (x) {
+                return 5 * (x - 40)
+            }
+        },
+        {
+            name: "x13", id: 13,
+            value: function (x) {
+                return 5 * (x - 30)
+            }
+        }
+    ];
+
+
+    var svg = d3.select("body")
+            .append("svg")
+            .attr("width", 800)
+            .attr("height", 800)
+            .attr("class", "bubble");
+
+
+    dataByYear = function (yil) {
+        kisiler_cpy = [];
+        for (i = 0; i < insanlar.length; i++) {
+            insan = insanlar[i]
+
+            data = {
+                id: insan.id,
+                name: insan.name,
+                value: insan.value(yil)
+            }
+            if (data.value > 0)
+                kisiler_cpy.push(data);
+        }
+        return kisiler_cpy;
+    }
+
+
+    var bubble = d3.layout.pack()
+
+            .sort(function (a, b) {
+                return -(a.value - b.value)
+            })
+
+            .size([diameter, diameter])
+
+
+    function handleEnter(bubbles_enter) {
+        var color = d3.scale.category10();
+        group = bubbles_enter.append("g").attr("class", "bubble");
+
+
+        group.append("circle").attr("r", function (d) {
+                    return d.r;
+                })
+                .attr("cx", function (d) {
+                    return d.x;
+                })
+                .attr("cy", function (d) {
+                    return d.y;
+                })
+                .style("fill", function (d) {
+                    return color(d.value);
+                });
+
+        group.append("text")
+                .attr("x", function (d) {
+                    return d.x;
+                })
+                .attr("y", function (d) {
+                    return d.y + 5;
+                })
+                .attr("text-anchor", "middle")
+                .text(function (d) {
+                    return d["name"];
+                })
+                .style({
+                    "fill": "white",
+                    "font-family": "Helvetica Neue, Helvetica, Arial, san-serif",
+                    "font-size": "12px"
+                });
+    }
+
+    function go(yil) {
+
+        var data = dataByYear(yil);
+
+        var nodes = bubble.nodes({children: data}).filter(function (d) {
+            return !d.children;
+        });
+
+        var bubbles = svg.append("g")
+                .attr("transform", "translate(0,0)")
+                .selectAll("circle")
+                .data(nodes, function (x) {
+                    console.log(x.id);
+                    return x.id
+                })
+
+        handleEnter(bubbles.enter());
+    }
+
+
+    go(COUNTER);
+    function go2(yil) {
+        var color = d3.scale.category10();
+
+        var data = dataByYear(yil);
+
+        var nodes = bubble.nodes({children: data}).filter(function (d) {
+            return !d.children;
+        });
+
+        var bubbles = svg.selectAll("g.bubble")
+                .data(nodes, function (x) {
+                    return x.id
+                })
+
+        handleEnter(bubbles.enter());
+        bubles_transition = bubbles.transition();
+
+
+        bubles_transition.select("circle")
+                .attr("r", function (d) {
+                    return d.r;
+                })
+                .attr("cx", function (d) {
+                    return d.x;
+                })
+                .attr("cy", function (d) {
+                    return d.y;
+                })
+                .style("fill", function (d) {
+                    return color(d.value);
+                });
+
+
+        bubles_transition.select("text")
+                .attr("x", function (d) {
+                    return d.x;
+                })
+                .attr("y", function (d) {
+                    return d.y + 5;
+                })
+                .attr("text-anchor", "middle")
+                .text(function (d) {
+                    return d["name"];
+                })
+                .style({
+                    "fill": "white",
+                    "font-family": "Helvetica Neue, Helvetica, Arial, san-serif",
+                    "font-size": "12px"
+                });
+
+
+        bubbles.exit().remove();
+    }
+
+
+    document.onkeydown = function (e) {
+        switch (e.keyCode) {
+            case 37:
+                break;
+            case 38:
+
+                go2(++COUNTER);
+                break;
+            case 39:
+                break;
+            case 40:
+                go2(--COUNTER);
+
+                break;
+        }
+    };
 
 
 </script>

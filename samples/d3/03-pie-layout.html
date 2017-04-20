@@ -41,8 +41,7 @@
             .attr("height", 2 * h);
 
     //Set up groups
-    var arcs = svg.selectAll("g.arc")
-            .data(pie(dataset))
+    var arcs = svg.selectAll("g.arc") .data(pie(dataset))
             .enter()
             .append("g")
             .attr("class", "arc")
