@@ -1,6 +1,26 @@
 <html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        .circle {
+            background-color: blue;
+            height: 100%;
+            border-radius: 100%;
+            text-align: center;
+            line-height: 200px;
+            font-size: 30px;
+        }
 
-<body>
+        .circle span {
+            line-height: normal;
+            display: inline-block;
+            vertical-align: middle;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+    </style>
+</head>
+<body bgcolor="#353535">
 
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script
@@ -10,98 +30,220 @@
 <script type="text/javascript">
 
     //Width and height
-    var w = 500;
-    var h = 300;
-    var diameter = 500;
+    var w = 900;
+    var h = 900;
+    var diameter = 900;
     var COUNTER = 30;
 
     var insanlar = [
-        {
-
-            name: "x1", id: 1,
-            value: function (x) {
-                return x
-            }
-        },
-        {
-            name: "x2", id: 2,
-            value: function (x) {
-                return x - 1
-            }
-        },
-        {
-            name: "x3", id: 3,
-            value: function (x) {
-                return x + 1
-            }
-        },
-        {
-            name: "x4", id: 4,
-            value: function (x) {
-                return x * 2
-            }
-        },
-        {
-            name: "x5", id: 5,
-            value: function (x) {
-                return x * 2
-            }
-        },
-        {
-            name: "x6", id: 6,
-            value: function (x) {
-                return x / 2
-            }
-        },
-        {
-            name: "x7", id: 7,
-            value: function (x) {
-                return x * 2
-            }
-        },
-        {
-            name: "x8", id: 8,
-            value: function (x) {
-                return x * 2
-            }
-        },
-        {
-            name: "x9", id: 9,
-            value: function (x) {
-                return x - 10
-            }
-        },
-        {
-            name: "x10", id: 10,
-            value: function (x) {
-                return x - 10
-            }
-        },
-        {
-            name: "x11", id: 11,
-            value: function (x) {
-                return 5 * (x - 40)
-            }
-        },
-        {
-            name: "x12", id: 12,
-            value: function (x) {
-                return 5 * (x - 40)
-            }
-        },
-        {
-            name: "x13", id: 13,
-            value: function (x) {
-                return 5 * (x - 30)
-            }
-        }
-    ];
+                {
+                    "name": "ekşi itiraf",
+                    "value": 33824
+                },
+                {
+                    "name": "survivor 2016",
+                    "value": 23113
+                },
+                {
+                    "name": "şu anda çalan şarkı",
+                    "value": 14992
+                },
+                {
+                    "name": "düşün ki o bunu okuyor",
+                    "value": 13345
+                },
+                {
+                    "name": "çaylak onay listesi",
+                    "value": 13128
+                },
+                {
+                    "name": "game of thrones",
+                    "value": 10147
+                },
+                {
+                    "name": "beşiktaş",
+                    "value": 8740
+                },
+                {
+                    "name": "hastası olunan sözler",
+                    "value": 7429
+                },
+                {
+                    "name": "pokemon go",
+                    "value": 6418
+                },
+                {
+                    "name": "recep tayyip erdoğan",
+                    "value": 5900
+                },
+                {
+                    "name": "arda turan",
+                    "value": 5653
+                },
+                {
+                    "name": "öğrenildiğinde ufku iki katına çıkaran şeyler",
+                    "value": 5639
+                },
+                {
+                    "name": "şu an dinlenen şarkıdan bir cümle",
+                    "value": 5206
+                },
+                {
+                    "name": "ekşi sözlük dertleşecek insan veritabanı",
+                    "value": 4843
+                },
+                {
+                    "name": "galatasaray",
+                    "value": 4761
+                },
+                {
+                    "name": "bedelli askerlik",
+                    "value": 4513
+                },
+                {
+                    "name": "15 temmuz 2016 darbe girişimi",
+                    "value": 4479
+                },
+                {
+                    "name": "iz bırakan kitap cümleleri",
+                    "value": 4398
+                },
+                {
+                    "name": "28 şubat 2016 ekşi sözlük'ün tasarımının değişmesi",
+                    "value": 4236
+                },
+                {
+                    "name": "mario gomez",
+                    "value": 4207
+                },
+                {
+                    "name": "türkiye'den siktir olup gitmek",
+                    "value": 4161
+                },
+                {
+                    "name": "kemal kılıçdaroğlu",
+                    "value": 4141
+                },
+                {
+                    "name": "poyraz karayel",
+                    "value": 4059
+                },
+                {
+                    "name": "2016 turizm krizi",
+                    "value": 4047
+                },
+                {
+                    "name": "mustafa kemal atatürk",
+                    "value": 3915
+                },
+                {
+                    "name": "donald trump",
+                    "value": 3874
+                },
+                {
+                    "name": "fatih terim",
+                    "value": 3840
+                },
+                {
+                    "name": "gökhan gönül",
+                    "value": 3726
+                },
+                {
+                    "name": "beyaz futbol",
+                    "value": 3681
+                },
+                {
+                    "name": "ekşi sözlük",
+                    "value": 3624
+                },
+                {
+                    "name": "sevilen şiirin en vurucu cümlesi",
+                    "value": 3617
+                },
+                {
+                    "name": "vodafone arena",
+                    "value": 3604
+                },
+                {
+                    "name": "devlet bahçeli",
+                    "value": 3565
+                },
+                {
+                    "name": "fenerbahçe",
+                    "value": 3489
+                },
+                {
+                    "name": "sözlük yazarlarının satın aldıkları son kitap",
+                    "value": 3450
+                },
+                {
+                    "name": "the walking dead",
+                    "value": 3420
+                },
+                {
+                    "name": "şenol güneş",
+                    "value": 3408
+                },
+                {
+                    "name": "13 mart 2016 ankara patlaması",
+                    "value": 3378
+                },
+                {
+                    "name": "aziz yıldırım",
+                    "value": 3251
+                },
+                {
+                    "name": "46 yok olan",
+                    "value": 3167
+                },
+                {
+                    "name": "fikret orman",
+                    "value": 3107
+                },
+                {
+                    "name": "çaylak",
+                    "value": 3069
+                },
+                {
+                    "name": "17 haziran 2016 ispanya türkiye maçı",
+                    "value": 3054
+                },
+                {
+                    "name": "kış saati uygulamasının kaldırılması",
+                    "value": 2964
+                },
+                {
+                    "name": "2016 ekonomik krizi",
+                    "value": 2940
+                },
+                {
+                    "name": "28 haziran 2016 atatürk havalimanı patlaması",
+                    "value": 2892
+                },
+                {
+                    "name": "6 aralık 2016 dinamo kiev beşiktaş maçı",
+                    "value": 2888
+                },
+                {
+                    "name": "jan olde riekerink",
+                    "value": 2841
+                },
+                {
+                    "name": "emre mor",
+                    "value": 2840
+                },
+                {
+                    "name": "sözlük nick'lerinden meslek tahmini yapmak",
+                    "value": 2807
+                }
+            ]
+            ;
 
 
     var svg = d3.select("body")
             .append("svg")
-            .attr("width", 800)
-            .attr("height", 800)
+            .attr("width", 2000)
+            .attr("height", 1000)
             .attr("class", "bubble");
 
 
@@ -111,9 +253,8 @@
             insan = insanlar[i]
 
             data = {
-                id: insan.id,
                 name: insan.name,
-                value: insan.value(yil)
+                value: insan.value
             }
             if (data.value > 0)
                 kisiler_cpy.push(data);
@@ -149,22 +290,23 @@
                     return color(d.value);
                 });
 
-        group.append("text")
+        group.append("foreignObject")
                 .attr("x", function (d) {
-                    return d.x;
+                    return d.x - d.r;
                 })
                 .attr("y", function (d) {
-                    return d.y + 5;
+                    return d.y - d.r;
                 })
-                .attr("text-anchor", "middle")
-                .text(function (d) {
-                    return d["name"];
+                .attr("width", function (d) {
+                    return 2 * d.r
                 })
-                .style({
-                    "fill": "white",
-                    "font-family": "Helvetica Neue, Helvetica, Arial, san-serif",
-                    "font-size": "12px"
-                });
+                .attr("height", function (d) {
+                    return 2 * d.r
+                })
+                .attr("transform", "translate(-100,-100)")
+                .append("div")
+                .html("<p>Lorem ipsum dolor sit amet, ...</p>");
+
     }
 
     function go(yil) {
@@ -179,8 +321,7 @@
                 .attr("transform", "translate(0,0)")
                 .selectAll("circle")
                 .data(nodes, function (x) {
-                    console.log(x.id);
-                    return x.id
+                    return x.name
                 })
 
         handleEnter(bubbles.enter());
@@ -199,7 +340,7 @@
 
         var bubbles = svg.selectAll("g.bubble")
                 .data(nodes, function (x) {
-                    return x.id
+                    return x.name
                 })
 
         handleEnter(bubbles.enter());

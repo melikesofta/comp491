@@ -2,7 +2,7 @@ COLLECTION_NAME  = "entry";                 // Full Set 30m Entry
 COLLECTION_SAMPLE_NAME  = "entry_sample";   // Sample set 100k Entry
 
 db = new Mongo().getDB("eksi-db");
-collection = db.getCollection(COLLECTION_SAMPLE_NAME);
+collection = db.getCollection(COLLECTION_NAME);
 
 
 // get entry count of all topics ordered by count
@@ -62,6 +62,6 @@ db.topics_by_years.find().toArray().map(function(obj){
     titles = obj.value.titles;
     return {
         "year": obj._id,
-        "titles": titles.sort(function(a,b){return b.titleEntryCount-a.titleEntryCount}).slice(0,3)
+        "titles": titles.sort(function(a,b){return b.titleEntryCount-a.titleEntryCount}).slice(0,50)
     };
 })
