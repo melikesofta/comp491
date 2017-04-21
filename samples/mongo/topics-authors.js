@@ -6,12 +6,12 @@ COLLECTION_NAME  = "entry";                 // Full Set 30m Entry
 COLLECTION_SAMPLE_NAME  = "entry_sample";   // Sample set 100k Entry
 
 db = new Mongo().getDB("eksi-db");
-collection = db.getCollection(COLLECTION_SAMPLE_NAME);
+collection = db.getCollection(COLLECTION_NAME);
 
 db.getCollection("topic_authors").drop()
 db.createCollection("topic_authors")
 db.topic_authors.insert(
-    db.entry_sample.aggregate(
+    collection.aggregate(
         [
             {
                 $group: {_id:"$title.title", authors: {$addToSet: "$author.name"}}
