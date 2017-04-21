@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Programming Language Network</title>
+    <title>Ekşi Sözlük Graph Analysis</title>
     <script src="assets/lib/d3.v3.min.js"></script>
     <script src="assets/lib/fuzzy.min.js"></script>
     <style type="text/css">
@@ -57,7 +57,7 @@
         #sidebar p {
             padding: 20px;
             margin: 0;
-            margin-bottom: 20px;
+            margin-bottom: 0px;
         }
 
         .nodes-info, .edges-info {
@@ -117,33 +117,31 @@
 <body style="height: 100%; overflow: hidden">
 <div id="sidebar">
     <header>
-        <img src="assets/img/logo.png" alt="Programming Language Network"/>
+        <img src="assets/img/logo.png" alt="Ekşi Sözlük Graph Analysis"/>
         <p>
-            We will use graph layout algorithms to
+            We use graph layout algorithms to visualize Ekşi Sözlük data by means of entry counts, author counts,
 
-            visualize the data by detecting relationships between topics through the references given in the
-
-            entries, and the list of authors that has entries in a topic. We will then provide a characterization of
-
-            the topological features of the network such as degree distributions, vulnerabilities, shortest path
-
-            lengths, clustering coefficients, and degree assortativity.
+            and by detecting relationships between topics through the list of common authors between topics.
+            <br/><br/>
+            30 million entries
+            <br/>
+            02.1999 - 12.2016
         </p>
-        <p>
-            Our project consists of three major parts of
-
-            work: crawling through the website and getting entry, topic and author data; visualizing the network
-
-            using graph layout algorithms; and analyzing the network using social network analysis techniques.
-        </p>
+        <p style="margin-bottom:0">
+            Our project consistsed of three major parts of work:</p>
+            <ul style="margin-top:0">
+                <li>crawling through the website and getting entry, topic and author data</li>
+                <li>visualizing the network using graph layout algorithms</li>
+                <li>analyzing the network using social network analysis techniques</li>
+            </ul>
     </header>
     <h3>Networks Representations</h3>
     <ul class="nodes-info">
-        <li><em style="background: #FF0066"></em><span>&nbsp;</span><span>Most popular topics in years</span></li>
-        <li><em style="background: #FF6600"></em><span>&nbsp;</span><span>Most popular topics in years</span></li>
-        <li><em style="background: #66FF00"></em><span>&nbsp;</span><span>Most popular topics in years</span></li>
-        <li><em style="background: #0066FF"></em><span>&nbsp;</span><span>Most popular topics in years</span></li>
-        <li><em style="background: #FFFF66"></em><span>&nbsp;</span><span>Most popular topics in years</span></li>
+        <li><em style="background: #FF0066"></em><span>&nbsp;</span><span>Most popular topics per years</span></li>
+        <li><em style="background: #FF6600"></em><span>&nbsp;</span><span>Common authors between topics</span></li>
+        <li><em style="background: #66FF00"></em><span>&nbsp;</span><span>Most commonly used words per year</span></li>
+        <!--<li><em style="background: #0066FF"></em><span>&nbsp;</span><span>Most popular topics in years</span></li>-->
+        <!--<li><em style="background: #FFFF66"></em><span>&nbsp;</span><span>Most popular topics in years</span></li>-->
     </ul>
 </div>
 <div style="height: 100%; overflow: hidden">
