@@ -2,32 +2,33 @@
 <head>
     <meta charset="utf-8">
     <style>
-        .circle {
-            background-color: blue;
+        .table {
             height: 100%;
-            border-radius: 100%;
+            width: 100%;
             text-align: center;
-            line-height: 200px;
-            font-size: 30px;
-        }
-
-        .circle span {
-            line-height: normal;
-            display: inline-block;
-            vertical-align: middle;
+            vertical-align: center;
             color: white;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+
         }
     </style>
 </head>
-<body bgcolor="#353535">
+<body style="padding-left: 328px" bgcolor="#353535">
 
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="04-eksi-data.js" charset="utf-8"></script>
 <script
         src="https://code.jquery.com/jquery-1.12.4.min.js"
         integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
         crossorigin="anonymous"></script>
 <script type="text/javascript">
+
+
+    function xyz(){
+        val = Math.random() * 1000 + 1000
+        sign = Math.sign( 0.5 - Math.random())
+
+        return sign * val
+    }
 
     //Width and height
     var w = 900;
@@ -35,231 +36,17 @@
     var diameter = 900;
     var COUNTER = 30;
 
-    var insanlar = [
-                {
-                    "name": "ekşi itiraf",
-                    "value": 33824
-                },
-                {
-                    "name": "survivor 2016",
-                    "value": 23113
-                },
-                {
-                    "name": "şu anda çalan şarkı",
-                    "value": 14992
-                },
-                {
-                    "name": "düşün ki o bunu okuyor",
-                    "value": 13345
-                },
-                {
-                    "name": "çaylak onay listesi",
-                    "value": 13128
-                },
-                {
-                    "name": "game of thrones",
-                    "value": 10147
-                },
-                {
-                    "name": "beşiktaş",
-                    "value": 8740
-                },
-                {
-                    "name": "hastası olunan sözler",
-                    "value": 7429
-                },
-                {
-                    "name": "pokemon go",
-                    "value": 6418
-                },
-                {
-                    "name": "recep tayyip erdoğan",
-                    "value": 5900
-                },
-                {
-                    "name": "arda turan",
-                    "value": 5653
-                },
-                {
-                    "name": "öğrenildiğinde ufku iki katına çıkaran şeyler",
-                    "value": 5639
-                },
-                {
-                    "name": "şu an dinlenen şarkıdan bir cümle",
-                    "value": 5206
-                },
-                {
-                    "name": "ekşi sözlük dertleşecek insan veritabanı",
-                    "value": 4843
-                },
-                {
-                    "name": "galatasaray",
-                    "value": 4761
-                },
-                {
-                    "name": "bedelli askerlik",
-                    "value": 4513
-                },
-                {
-                    "name": "15 temmuz 2016 darbe girişimi",
-                    "value": 4479
-                },
-                {
-                    "name": "iz bırakan kitap cümleleri",
-                    "value": 4398
-                },
-                {
-                    "name": "28 şubat 2016 ekşi sözlük'ün tasarımının değişmesi",
-                    "value": 4236
-                },
-                {
-                    "name": "mario gomez",
-                    "value": 4207
-                },
-                {
-                    "name": "türkiye'den siktir olup gitmek",
-                    "value": 4161
-                },
-                {
-                    "name": "kemal kılıçdaroğlu",
-                    "value": 4141
-                },
-                {
-                    "name": "poyraz karayel",
-                    "value": 4059
-                },
-                {
-                    "name": "2016 turizm krizi",
-                    "value": 4047
-                },
-                {
-                    "name": "mustafa kemal atatürk",
-                    "value": 3915
-                },
-                {
-                    "name": "donald trump",
-                    "value": 3874
-                },
-                {
-                    "name": "fatih terim",
-                    "value": 3840
-                },
-                {
-                    "name": "gökhan gönül",
-                    "value": 3726
-                },
-                {
-                    "name": "beyaz futbol",
-                    "value": 3681
-                },
-                {
-                    "name": "ekşi sözlük",
-                    "value": 3624
-                },
-                {
-                    "name": "sevilen şiirin en vurucu cümlesi",
-                    "value": 3617
-                },
-                {
-                    "name": "vodafone arena",
-                    "value": 3604
-                },
-                {
-                    "name": "devlet bahçeli",
-                    "value": 3565
-                },
-                {
-                    "name": "fenerbahçe",
-                    "value": 3489
-                },
-                {
-                    "name": "sözlük yazarlarının satın aldıkları son kitap",
-                    "value": 3450
-                },
-                {
-                    "name": "the walking dead",
-                    "value": 3420
-                },
-                {
-                    "name": "şenol güneş",
-                    "value": 3408
-                },
-                {
-                    "name": "13 mart 2016 ankara patlaması",
-                    "value": 3378
-                },
-                {
-                    "name": "aziz yıldırım",
-                    "value": 3251
-                },
-                {
-                    "name": "46 yok olan",
-                    "value": 3167
-                },
-                {
-                    "name": "fikret orman",
-                    "value": 3107
-                },
-                {
-                    "name": "çaylak",
-                    "value": 3069
-                },
-                {
-                    "name": "17 haziran 2016 ispanya türkiye maçı",
-                    "value": 3054
-                },
-                {
-                    "name": "kış saati uygulamasının kaldırılması",
-                    "value": 2964
-                },
-                {
-                    "name": "2016 ekonomik krizi",
-                    "value": 2940
-                },
-                {
-                    "name": "28 haziran 2016 atatürk havalimanı patlaması",
-                    "value": 2892
-                },
-                {
-                    "name": "6 aralık 2016 dinamo kiev beşiktaş maçı",
-                    "value": 2888
-                },
-                {
-                    "name": "jan olde riekerink",
-                    "value": 2841
-                },
-                {
-                    "name": "emre mor",
-                    "value": 2840
-                },
-                {
-                    "name": "sözlük nick'lerinden meslek tahmini yapmak",
-                    "value": 2807
-                }
-            ]
-            ;
 
 
     var svg = d3.select("body")
             .append("svg")
-            .attr("width", 2000)
-            .attr("height", 1000)
+            .attr("width", diameter)
+            .attr("height", diameter)
             .attr("class", "bubble");
 
 
     dataByYear = function (yil) {
-        kisiler_cpy = [];
-        for (i = 0; i < insanlar.length; i++) {
-            insan = insanlar[i]
-
-            data = {
-                name: insan.name,
-                value: insan.value
-            }
-            if (data.value > 0)
-                kisiler_cpy.push(data);
-        }
-        return kisiler_cpy;
+        return data_by_year[yil + ""]
     }
 
 
@@ -272,12 +59,11 @@
             .size([diameter, diameter])
 
 
-    function handleEnter(bubbles_enter) {
+    function handleTransition(bubles_transition) {
         var color = d3.scale.category10();
-        group = bubbles_enter.append("g").attr("class", "bubble");
 
 
-        group.append("circle").attr("r", function (d) {
+        bubles_transition.select("circle").attr("r", function (d) {
                     return d.r;
                 })
                 .attr("cx", function (d) {
@@ -290,7 +76,7 @@
                     return color(d.value);
                 });
 
-        group.append("foreignObject")
+        bubles_transition.select("foreignObject")
                 .attr("x", function (d) {
                     return d.x - d.r;
                 })
@@ -303,9 +89,67 @@
                 .attr("height", function (d) {
                     return 2 * d.r
                 })
-                .attr("transform", "translate(-100,-100)")
-                .append("div")
-                .html("<p>Lorem ipsum dolor sit amet, ...</p>");
+//        bubles_transition.select("foreignObject").append("xhtml:table").attr("class", "table")
+//                .append("tr")
+//                .append("td")
+//                .html(function (d) {
+//                    return d.name.split(' ').map(function (w) {
+//                        return w[0].toUpperCase() + w.substr(1).toLowerCase()
+//                    }).join(' ')
+//                });
+
+    }
+
+    function handleExit(bubles_transition) {
+
+
+        bubles_transition.select("circle")
+                .attr("cx", function(d){return d.g_x})
+                .attr("cy", function(d){return d.g_y})
+
+        bubles_transition.select("foreignObject")
+                .attr("x", function(d){return d.g_x})
+                .attr("y", function(d){return d.g_y})
+
+        console.log(bubles_transition);
+
+    }
+    function handleEnter(bubbles_enter) {
+        var color = d3.scale.category10();
+        group = bubbles_enter.append("g").attr("class", "bubble");
+
+
+        group.append("circle")
+            .attr("r", function (d) {return d.r;})
+            .attr("cx", function(d){return d.g_x})
+            .attr("cy", function(d){return d.g_y})
+            .style("fill", function (d) { return color(d.value); })
+            .transition().duration(2000)
+            .attr("cx", function (d) { return d.x; })
+            .attr("cy", function (d) { return d.y; })
+            .style("fill", function (d) { return color(d.value); });
+
+        foreign = group.append("foreignObject")
+                .attr("x", function(d){return d.g_x})
+                .attr("y", function(d){return d.g_y})
+                .attr("width", function (d) {
+                    return 2 * d.r
+                })
+                .attr("height", function (d) {
+                    return 2 * d.r
+                })
+
+        foreign.transition().duration(2000)
+                .attr("cx", function (d) { return d.x; })
+                .attr("cy", function (d) { return d.y; })
+        foreign.append("xhtml:table").attr("class", "table")
+                .append("tr")
+                .append("td")
+                .html(function (d) {
+                    return d.name.split(' ').map(function (w) {
+                        return w[0].toUpperCase() + w.substr(1).toLowerCase()
+                    }).join(' ')
+                });
 
     }
 
@@ -328,11 +172,15 @@
     }
 
 
-    go(COUNTER);
     function go2(yil) {
+
         var color = d3.scale.category10();
 
-        var data = dataByYear(yil);
+        var data = dataByYear(yil).map(function(x){
+            x.g_x = xyz();
+            x.g_y = xyz();
+            return x
+        });
 
         var nodes = bubble.nodes({children: data}).filter(function (d) {
             return !d.children;
@@ -344,43 +192,9 @@
                 })
 
         handleEnter(bubbles.enter());
-        bubles_transition = bubbles.transition();
-
-
-        bubles_transition.select("circle")
-                .attr("r", function (d) {
-                    return d.r;
-                })
-                .attr("cx", function (d) {
-                    return d.x;
-                })
-                .attr("cy", function (d) {
-                    return d.y;
-                })
-                .style("fill", function (d) {
-                    return color(d.value);
-                });
-
-
-        bubles_transition.select("text")
-                .attr("x", function (d) {
-                    return d.x;
-                })
-                .attr("y", function (d) {
-                    return d.y + 5;
-                })
-                .attr("text-anchor", "middle")
-                .text(function (d) {
-                    return d["name"];
-                })
-                .style({
-                    "fill": "white",
-                    "font-family": "Helvetica Neue, Helvetica, Arial, san-serif",
-                    "font-size": "12px"
-                });
-
-
-        bubbles.exit().remove();
+        handleTransition(bubbles.transition().duration(3000));
+        handleExit(bubbles.exit().transition().duration(3000));
+        bubbles.exit().transition().delay(3100).remove()
     }
 
 
@@ -400,6 +214,15 @@
                 break;
         }
     };
+
+    $(function(){
+        go2(2000);
+        $("body").append("<hr>")
+        $p = $("body").append("<p>").css("color", "white")
+        for(i = 1999; i< 2017; i++){
+            $p.append('<a style="color: white"  onclick="go2(' + i + ')" href=#>' + i + '</a> - ').css("color", "white")
+        }
+    })
 
 
 </script>
