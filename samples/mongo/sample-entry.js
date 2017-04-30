@@ -22,7 +22,6 @@ ENTRY = {
     "url": "https://eksisozluk.com/entry/209069",
     "favorite_count": 0,
     "status": 1,
-
     "content": "seneler once trt izmir'in hazirlayip sundugu cumartesi oglen eglence programi",
 
     /**
@@ -37,6 +36,7 @@ ENTRY = {
         "url": "https://eksisozluk.com/imbat--83259",
         "id": "83259"
     },
+
     /**
      *
      * Hrefs

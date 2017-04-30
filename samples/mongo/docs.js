@@ -65,3 +65,9 @@ var reduceYears = function(key, values){
 
 db.entry.mapReduce(mapYears, reduceYears, {out:'topics_by_years'})
 db.topics_by_years.find().pretty();
+
+// get entries of a topic
+db.collection.find({$where : function() { return this.title.title == title}});
+
+// failIndexKeyTooLong solution without sudo
+db.getSiblingDB('admin').runCommand( { setParameter: 1, failIndexKeyTooLong: false } )
