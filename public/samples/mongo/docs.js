@@ -9,7 +9,7 @@ db.entry.find().pretty()
 //https://docs.mongodb.com/manual/reference/mongo-shell/
 
 // get topics with entry counts
-db.topic_entry_count.insert(db.entry.aggregate([{$group:{_id:"$title_id", count:{$sum:1}}}, {$sort:{count:-1}}], {allowDiskUse:true}).toArray())
+db.topic_entry_count.insert(db.entry.aggregate([{$group:{_id:"$title.title", count:{$sum:1}}}, {$sort:{count:-1}}], {allowDiskUse:true}).toArray())
 
 db.topic_entry_count.find().pretty()
 

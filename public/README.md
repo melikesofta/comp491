@@ -1,5 +1,5 @@
-Ekşi Sözlük Graph Analysis
-===========================
+Graph Visualization and Analysis of Ekşi Sözlük Data
+====================================================
 
 Ekşi
 
