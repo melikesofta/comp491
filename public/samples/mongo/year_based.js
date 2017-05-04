@@ -26,8 +26,8 @@ function getMost(year, limit) {
     )
 }
 var all = {};
-for (i = 1999; i<2017;i ++){
-    all[i+""] = getMost(i, 50);
+for (i = 1999; i < 2017; i++) {
+    all[i + ""] = getMost(i, 50);
 
 }
 
