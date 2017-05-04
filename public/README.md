@@ -1,1 +1,1 @@
-###Graph Visualization and Analysis of Ekşi Sözlük Data
+Graph Visualization and Analysis of Ekşi Sözlük Data
