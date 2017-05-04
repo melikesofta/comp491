@@ -30,7 +30,7 @@ _project = {
 }
 
 collection.aggregate(
-    [_group, _project, _out],
+    [_group, _out],
     {allowDiskUse: true}
 );
 
