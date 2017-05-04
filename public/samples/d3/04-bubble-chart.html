@@ -10,22 +10,35 @@
             color: white;
 
         }
+
+        .slider-tick-label {
+            padding-top: 30px;
+            color: white;
+        }
+        .slider-tick-label-container {
+            padding-top: 30px;
+            color: white;
+        }
     </style>
+    <link rel="stylesheet" href="http://seiyria.com/bootstrap-slider/css/bootstrap-slider.css">
 </head>
 <body style="padding-left: 328px" bgcolor="#353535">
 
+<svg id="bubble"></svg>
+<input id="ex13" type="text" style="width: 800px"/>
+
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="04-eksi-data.js" charset="utf-8"></script>
-<script
-        src="https://code.jquery.com/jquery-1.12.4.min.js"
-        integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
-        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
+<script src="assets/bootstrap-slider.min.js" crossorigin="anonymous"></script>
+
 <script type="text/javascript">
 
 
-    function xyz(){
+    function xyz() {
         val = Math.random() * 1000 + 1000
-        sign = Math.sign( 0.5 - Math.random())
+        sign = Math.sign(0.5 - Math.random())
 
         return sign * val
     }
@@ -37,9 +50,7 @@
     var COUNTER = 30;
 
 
-
-    var svg = d3.select("body")
-            .append("svg")
+    var svg = d3.select("#bubble")
             .attr("width", diameter)
             .attr("height", diameter)
             .attr("class", "bubble");
@@ -104,14 +115,21 @@
 
 
         bubles_transition.select("circle")
-                .attr("cx", function(d){return d.g_x})
-                .attr("cy", function(d){return d.g_y})
+                .attr("cx", function (d) {
+                    return d.g_x
+                })
+                .attr("cy", function (d) {
+                    return d.g_y
+                })
 
         bubles_transition.select("foreignObject")
-                .attr("x", function(d){return d.g_x})
-                .attr("y", function(d){return d.g_y})
+                .attr("x", function (d) {
+                    return d.g_x
+                })
+                .attr("y", function (d) {
+                    return d.g_y
+                })
 
-        console.log(bubles_transition);
 
     }
     function handleEnter(bubbles_enter) {
@@ -120,18 +138,36 @@
 
 
         group.append("circle")
-            .attr("r", function (d) {return d.r;})
-            .attr("cx", function(d){return d.g_x})
-            .attr("cy", function(d){return d.g_y})
-            .style("fill", function (d) { return color(d.value); })
-            .transition().duration(2000)
-            .attr("cx", function (d) { return d.x; })
-            .attr("cy", function (d) { return d.y; })
-            .style("fill", function (d) { return color(d.value); });
+                .attr("r", function (d) {
+                    return d.r;
+                })
+                .attr("cx", function (d) {
+                    return d.g_x
+                })
+                .attr("cy", function (d) {
+                    return d.g_y
+                })
+                .style("fill", function (d) {
+                    return color(d.value);
+                })
+                .transition().duration(2000)
+                .attr("cx", function (d) {
+                    return d.x;
+                })
+                .attr("cy", function (d) {
+                    return d.y;
+                })
+                .style("fill", function (d) {
+                    return color(d.value);
+                });
 
         foreign = group.append("foreignObject")
-                .attr("x", function(d){return d.g_x})
-                .attr("y", function(d){return d.g_y})
+                .attr("x", function (d) {
+                    return d.g_x
+                })
+                .attr("y", function (d) {
+                    return d.g_y
+                })
                 .attr("width", function (d) {
                     return 2 * d.r
                 })
@@ -140,8 +176,12 @@
                 })
 
         foreign.transition().duration(2000)
-                .attr("cx", function (d) { return d.x; })
-                .attr("cy", function (d) { return d.y; })
+                .attr("cx", function (d) {
+                    return d.x;
+                })
+                .attr("cy", function (d) {
+                    return d.y;
+                })
         foreign.append("xhtml:table").attr("class", "table")
                 .append("tr")
                 .append("td")
@@ -176,7 +216,7 @@
 
         var color = d3.scale.category10();
 
-        var data = dataByYear(yil).map(function(x){
+        var data = dataByYear(yil).map(function (x) {
             x.g_x = xyz();
             x.g_y = xyz();
             return x
@@ -215,14 +255,28 @@
         }
     };
 
-    $(function(){
-        go2(2000);
-        $("body").append("<hr>")
-        $p = $("body").append("<p>").css("color", "white")
-        for(i = 1999; i< 2017; i++){
-            $p.append('<a style="color: white"  onclick="go2(' + i + ')" href=#>' + i + '</a> - ').css("color", "white")
-        }
-    })
+    //    $(function(){
+    //        go2(2000);
+    //        $("body").append("<hr>")
+    //        $p = $("body").append("<p>").css("color", "white")
+    //        for(i = 1999; i< 2017; i++){
+    //            $p.append('<a style="color: white"  onclick="go2(' + i + ')" href=#>' + i + '</a> - ').css("color", "white")
+    //        }
+    //    })
+
+
+    $(function () {
+        $("#ex13").slider({
+            ticks: [1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016],
+            ticks_labels: [1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016],
+            ticks_snap_bounds: 1,
+        }).on('change', function (x) {
+            go2(x.value.newValue);
+        }).on('ready', function (x) {
+            $(".slider-tick-label").css("padding-top", 50);
+        })
+        go2(1999)
+    });
 
 
 </script>
