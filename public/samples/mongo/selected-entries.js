@@ -10,7 +10,7 @@ var allowed_topics_array = db.topics_allowed.findOne().p;
 PIPELINE = [
     { $addFields: {isInThere: {$in: ["$title.title", allowed_topics_array]}}},
     { $match: {"isInThere": true} },
-    {$out: "selected_entries"}
+    { $out: "selected_entries" }
 ];
 
 result = collection.aggregate(PIPELINE, ALLOW_DISK_USE);
