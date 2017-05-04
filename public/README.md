@@ -1,8 +1,8 @@
-Programming Language Network
-============================
+Ekşi Sözlük Graph Analysis
+===========================
 
-The network of programming languages.
+Ekşi
 
-![Programming Language Network](http://i.imgur.com/nm46XBy.png "Programming Language Network")
+Mongo
 
-Built with Gephi, NetworkX and D3.
+D3

@@ -24,9 +24,9 @@ _out = {
 
 _project = {
     $project: {
-        content: {$concat: "$content"}
+        content: {$concat: "$content"},
+        "_id": 1
     },
-    "_id": 1
 }
 
 collection.aggregate(
