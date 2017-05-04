@@ -6,10 +6,10 @@ COLLECTION_NAME = "entry";                 // Full Set 30m Entry
 COLLECTION_SAMPLE_NAME = "entry_sample";   // Sample set 100k Entry
 
 db = new Mongo().getDB("eksi-db");
-collection = db.getCollection(COLLECTION_SAMPLE_NAME);
+collection = db.getCollection("selected_entries");
 
-db.getCollection("topic").drop()
-db.createCollection("topic")
+//db.getCollection("topic").drop()
+db.createCollection("selected_topics")
 
 
 _unwind = {$unwind: "$href_norms"};
@@ -21,7 +21,7 @@ _group = {
     }
 };
 _out = {
-    $out: "topic"
+    $out: "selected_topics"
 };
 
 _project = {
