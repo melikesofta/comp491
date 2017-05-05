@@ -71,6 +71,7 @@
             margin: 0 0 0 15px;
             list-style: none;
             font-size: 15px;
+            margin-top: 10px;
             padding-left: 30px;
         }
 
@@ -90,14 +91,21 @@
             border-radius: 50%;
         }
 
-        .edges-info li em {
+        .nodes-info li:hover em {
             display: inline-block;
             width: 20px;
             position: absolute;
             height: 3px;
             margin-top: 8px;
+            border-radius: 0;
             background: purple;
             margin-left: -25px;
+        }
+        a{
+            text-decoration: none;
+        }
+        a:hover{
+            border-bottom: 1px dashed white;
         }
 
         .search-box {
@@ -134,16 +142,19 @@
     <h3><a style="color: white" href="report.html" target="content_frame">About the Data</a></h3><hr/>
     <h3>Networks Representations</h3>
     <ul class="nodes-info">
-        <li><em style="background: #FF0066"></em><span>&nbsp;</span><span><a style="color: white" href="samples/d3/04-bubble-chart.html" target="content_frame">Most popular topics in years</a> </span></li>
-        <li><em style="background: #FF6600"></em><span>&nbsp;</span><span><a style="color: white" href="samples/d3/06-word-cloud.html" target="content_frame">Most used keywords</a> </span></li>
-        <li><em style="background: #66FF00"></em><span>&nbsp;</span><span><a style="color: white" href="samples/d3/05-force-layout.html" target="content_frame">Topics with mutual Author</a> </span></li>
-        <li><em style="background: #0066FF"></em><span>&nbsp;</span><span><a style="color: white" href="samples/d3/07-edge-bundle.html" target="content_frame">Topic Mentions</a> </span></li>
+        <li><em style="background: #aa70ff"></em><span>&nbsp;</span><span><a style="color: white" href="samples/d3/04-bubble-chart.html" target="content_frame">Most popular topics in years</a> </span></li>
+        <li><em style="background: #FF6600"></em><span>&nbsp;</span><span><a style="color: white" href="samples/d3/06-word-cloud.html" target="content_frame">Keywords Jungle</a> </span></li>
+        <!--<li><em style="background: #00fff9"></em><span>&nbsp;</span><span><a style="color: white" href="samples/d3/05-force-layout.html" target="content_frame">Topics with mutual Author</a> </span></li>-->
+        <li><em style="background: #77fff5"></em><span>&nbsp;</span><span><a style="color: white" href="samples/d3/09-bar-chart.html" target="content_frame">Entry Count Scale</a> </span></li>
+        <!--<li><em style="background: #0066FF"></em><span>&nbsp;</span><span><a style="color: white" href="samples/d3/07-edge-bundle.html" target="content_frame">Topic Mentions</a> </span></li>-->
+        <li><em style="background: #ff3000"></em><span>&nbsp;</span><span><a style="color: white" href="samples/d3/10-journals_dbs.html" target="content_frame">Topic Evolution</a> </span></li>
+        <li><em style="background: #e5ff00"></em><span>&nbsp;</span><span><a style="color: white" href="samples/d3/11-scatter-social.html" target="content_frame">Social Impact</a> </span></li>
         <!--<li><em style="background: #0066FF"></em><span>&nbsp;</span><span>Most popular topics in years</span></li>-->
         <!--<li><em style="background: #FFFF66"></em><span>&nbsp;</span><span>Most popular topics in years</span></li>-->
     </ul>
 </div>
 <div style="height: 100%; overflow: hidden">
-    <iframe name="content_frame" width="100%" height="100%" src="../samples/d3/04-bubble-chart.html"></iframe>
+    <iframe name="content_frame" width="100%" height="100%" src="samples/d3/04-bubble-chart.html"></iframe>
 </div>
 </body>
 </html>

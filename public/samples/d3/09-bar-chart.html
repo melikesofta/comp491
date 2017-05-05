@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>D3: Pie layout</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js"></script>
+    <style type="text/css">
+
+        text {
+            font-family: sans-serif;
+            font-size: 12px;
+            fill: white;
+        }
+
+    </style>
+    <style type="text/css">
+
+        #o{
+            font-size: 18px;
+            color: rgba(255,99,132,1);
+            width: 400px;
+            border: 1px solid rgba(255,99,132,1);
+            padding: 20px;
+            border-radius: 15px;
+            position: absolute;
+            left: 700px;
+            top: 150px;
+        }
+        #o table td{
+            border: 1px solid rgba(255,99,132,1);
+            margin-left: -2px;
+        }
+    </style>
+</head>
+<body style="padding-left: 328px" bgcolor="#353535">
+
+<div style="width: 801px; height: 501px;">
+    <div id="o">
+        Topics with less than 1000 entrries are not included in graph:<br>
+        <br>
+        <br>
+        <table cellpadding="10" cellspacing="0" style="">
+            <tr>
+                <td>0 - 100</td>  <td>3.396.325</td>
+            </tr>
+            <tr>
+                <td>100 - 200</td>  <td>23.245</td>
+            </tr>
+            <tr>
+                <td>200 - 300</td>  <td>7.017</td>
+            </tr>
+            <tr>
+                <td>AVG(GRAPH)</td>  <td>36</td>
+            </tr>
+        </table>
+    </div>
+    <canvas id="myChart" width="1200" height="800"></canvas>
+</div>
+
+
+<script type="text/javascript">
+    var ctx = document.getElementById("myChart");
+    var data_all = [[1000,240],[1100,190],[1200,171],[1300,132],[1400,106],[1500,80],[1600,71],[1700,65],[1800,64],[1900,43],[2000,43],[2100,47],[2200,41],[2300,25],[2400,31],[2500,32],[2600,27],[2700,22],[2800,21],[2900,23],[3000,13],[3100,12],[3200,12],[3300,11],[3400,15],[3500,9],[3600,8],[3700,14],[3800,8],[3900,8],[4000,10],[4100,6],[4200,5],[4300,9],[4400,8],[4500,5],[4600,5],[4700,3],[4800,9],[4900,2],[5000,2],[5100,6],[5200,3],[5300,3],[5400,1],[5500,5],[5600,5],[5700,1],[5800,5],[5900,1],[6000,2],[6100,3],[6200,4],[6300,1],[6400,4],[6500,5],[6600,2],[6700,5],[6800,4],[6900,2],[7000,1],[7100,1],[7200,0],[7300,2],[7400,0],[7500,3],[7600,2],[7700,3],[7800,1],[7900,2],[8000,3],[8100,3],[8200,2],[8300,1],[8400,2],[8500,2],[8600,1],[8700,2],[8800,0],[8900,2],[9000,2],[9100,0],[9200,0],[9300,1],[9400,0],[9500,1],[9600,1],[9700,0],[9800,1],[9900,0],[10000,2]]
+
+    d_labels = data_all.map(function(couple){return "" + couple[0]})
+    d_data = data_all.map(function(couple){return couple[1]})
+
+    var data = {
+        labels:d_labels,
+        datasets: [
+            {
+                label: "Topics with step size",
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor:'rgba(255,99,132,1)',
+                borderWidth: 1,
+                data: d_data
+            }
+        ]
+    };
+
+
+    var myBarChart = new Chart(ctx, {
+        type: 'bar',
+        data: data,
+        options: {
+            legend: {labels:{fontColor:"white"}},
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        fontColor: "white",
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        fontColor: "white",
+                    }
+                }]
+            }
+        }
+    });
+
+    $(function () {
+        $(ctx).css("width", 1200)
+        $(ctx).css("height", 800)
+    })
+
+</script>
+</body>
+</html>
