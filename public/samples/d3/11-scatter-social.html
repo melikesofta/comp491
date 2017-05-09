@@ -41,116 +41,123 @@
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script>
 
-	var div = d3.select("body").append("span")
-			.attr("class", "tooltip")
-			.style("opacity", 0);
+	function ppp (x_a, y_a){
+		var div = d3.select("body").append("span")
+				.attr("class", "tooltip")
+				.style("opacity", 0);
 
-	var margin = {top: 20, right: 20, bottom: 30, left: 40},
-			width = 960 - margin.left - margin.right,
-			height = 500 - margin.top - margin.bottom;
+		var margin = {top: 20, right: 20, bottom: 30, left: 40},
+				width = 400 - margin.left - margin.right,
+				height = 340 - margin.top - margin.bottom;
 
-	var x = d3.scale.pow().exponent(.8)
-			.range([0, width]);
+		var x = d3.scale.pow().exponent(.8)
+				.range([0, width]);
 
-	var y =  d3.scale.pow().exponent(.8)
-			.range([height, 0]);
+		var y =  d3.scale.pow().exponent(.8)
+				.range([height, 0]);
 
-	var color = d3.scale.category10();
+		var color = d3.scale.category10();
 
-	var xAxis = d3.svg.axis()
-			.scale(x)
-			.orient("bottom");
+		var xAxis = d3.svg.axis()
+				.scale(x)
+				.orient("bottom");
 
-	var yAxis = d3.svg.axis()
-			.scale(y)
-			.orient("left");
+		var yAxis = d3.svg.axis()
+				.scale(y)
+				.orient("left");
 
-	var svg = d3.select("body").append("svg")
-			.attr("width", width + margin.left + margin.right)
-			.attr("height", height + margin.top + margin.bottom)
-			.append("g")
-			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+		var svg = d3.select("body").append("svg")
+				.attr("width", width + margin.left + margin.right)
+				.attr("height", height + margin.top + margin.bottom)
+				.append("g")
+				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-	d3.dsv(';')("11-scatter-social.csv", function(error, data) {
-		if (error) throw error;
+		d3.dsv(';')("11-scatter-social.csv", function(error, data) {
+			if (error) throw error;
 
-		data.forEach(function(d) {
-			d.engagement = +d.engagement;
-			d.activity = +d.activity;
-			d.relevancy = +d.relevancy;
+			data.forEach(function(d) {
+				d.engagement = +d.engagement;
+				d.activity = +d.activity;
+				d.relevancy = +d.relevancy;
+			});
+
+			x.domain(d3.extent(data, function(d) { return d[x_a]; })).nice();
+			y.domain(d3.extent(data, function(d) { return d[y_a]; })).nice();
+
+			svg.append("g")
+					.attr("class", "x axis")
+					.attr("transform", "translate(0," + height + ")")
+					.call(xAxis)
+					.append("text")
+					.attr("class", "label")
+					.attr("x", width)
+					.attr("y", -6)
+					.style("text-anchor", "end")
+					.text(x_a);
+
+			svg.append("g")
+					.attr("class", "y axis")
+					.call(yAxis)
+					.append("text")
+					.attr("class", "label")
+					.attr("transform", "rotate(-90)")
+					.attr("y", 6)
+					.attr("dy", ".71em")
+					.style("text-anchor", "end")
+					.text(y_a)
+
+			svg.selectAll(".dot")
+					.data(data)
+					.enter().append("circle")
+					.attr("class", "dot")
+					.attr("r", 3.5)
+					.attr("cx", function(d) { return x(d[x_a]); })
+					.attr("cy", function(d) { return y(d[y_a]); })
+					.on("mouseover", function(d) {
+						div.transition()
+								.duration(200)
+								.style("opacity", .9);
+						div	.html(d.title.split(' ').map(function (s) {
+									return s.slice(0, 1).toUpperCase() + s.slice(1).toLowerCase();
+								}).join(' '))
+								.style("left", (d3.event.pageX - 30) + "px")
+								.style("top", (d3.event.pageY - 28) + "px");
+					})
+					.on("mouseout", function(d) {
+						div.transition()
+								.duration(500)
+								.style("opacity", 0);
+					});
+
+			var legend = svg.selectAll(".legend")
+					.data(color.domain())
+					.enter().append("g")
+					.attr("class", "legend")
+					.attr("fill", "white")
+					.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+			legend.append("rect")
+					.attr("x", width - 18)
+					.attr("width", 18)
+					.attr("fill", "white")
+					.attr("height", 18)
+					.style("fill", color);
+
+			legend.append("text")
+					.attr("x", width - 24)
+					.attr("y", 9)
+					.attr("fill", "white")
+					.attr("dy", ".35em")
+					.style("text-anchor", "end")
+					.text(function(d) { return d; });
+
 		});
 
-		x.domain(d3.extent(data, function(d) { return d.relevancy; })).nice();
-		y.domain(d3.extent(data, function(d) { return d.engagement; })).nice();
+	}
 
-		svg.append("g")
-				.attr("class", "x axis")
-				.attr("transform", "translate(0," + height + ")")
-				.call(xAxis)
-				.append("text")
-				.attr("class", "label")
-				.attr("x", width)
-				.attr("y", -6)
-				.style("text-anchor", "end")
-				.text("Relevency");
-
-		svg.append("g")
-				.attr("class", "y axis")
-				.call(yAxis)
-				.append("text")
-				.attr("class", "label")
-				.attr("transform", "rotate(-90)")
-				.attr("y", 6)
-				.attr("dy", ".71em")
-				.style("text-anchor", "end")
-				.text("Engegament")
-
-		svg.selectAll(".dot")
-				.data(data)
-				.enter().append("circle")
-				.attr("class", "dot")
-				.attr("r", 3.5)
-				.attr("cx", function(d) { return x(d.relevancy); })
-				.attr("cy", function(d) { return y(d.engagement); })
-				.on("mouseover", function(d) {
-					div.transition()
-							.duration(200)
-							.style("opacity", .9);
-					div	.html(d.title.split(' ').map(function (s) {
-								return s.slice(0, 1).toUpperCase() + s.slice(1).toLowerCase();
-							}).join(' '))
-							.style("left", (d3.event.pageX - 30) + "px")
-							.style("top", (d3.event.pageY - 28) + "px");
-				})
-				.on("mouseout", function(d) {
-					div.transition()
-							.duration(500)
-							.style("opacity", 0);
-				});
-
-		var legend = svg.selectAll(".legend")
-				.data(color.domain())
-				.enter().append("g")
-				.attr("class", "legend")
-				.attr("fill", "white")
-				.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-
-		legend.append("rect")
-				.attr("x", width - 18)
-				.attr("width", 18)
-				.attr("fill", "white")
-				.attr("height", 18)
-				.style("fill", color);
-
-		legend.append("text")
-				.attr("x", width - 24)
-				.attr("y", 9)
-				.attr("fill", "white")
-				.attr("dy", ".35em")
-				.style("text-anchor", "end")
-				.text(function(d) { return d; });
-
-	});
+	ppp("relevancy", "engagement");
+	ppp("relevancy", "activity");
+	ppp("engagement", "activity");
 
 </script>
 
