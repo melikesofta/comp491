@@ -1,7 +1,7 @@
 
 <html>
 <head>
-<script src="./journals_dbs.js"></script>
+<script src="10-journals_dbs.js"></script>
 <style type="text/css">
 body{font-family: Arial, sans-serif;font-size:10px;}
 .axis path,.axis line {fill: none;stroke:#b6b6b6;shape-rendering: crispEdges;}
@@ -16,7 +16,7 @@ text.value{font-size:12px;font-weight:bold;}
 <script type="text/javascript">
 function truncate(str, maxLength, suffix) {
 	if(str.length > maxLength) {
-		str = str.substring(0, maxLength + 1); 
+		str = str.substring(0, maxLength + 1);
 		str = str.substring(0, Math.min(str.length, str.lastIndexOf(" ")));
 		str = str + suffix;
 	}
@@ -68,7 +68,7 @@ var scls = { '1999': 75,
   '2015': 26046,
   '2016': 33824 };
 
-d3.json("journals_dbs.json", function(data) {
+d3.json("10-journals_dbs.json", function(data) {
 	x.domain([start_year, end_year]);
 	var xScale = d3.scale.linear()
 		.domain([start_year, end_year])
@@ -99,7 +99,7 @@ d3.json("journals_dbs.json", function(data) {
 		circles
 			.attr("cx", function(d, i) { return xScale(d[0]); })
 			.attr("cy", j*20+20)
-			.attr("r", function(d) { return    ((d[1] / scls[d[0]]) * 9)  + 1 ; })
+			.attr("r", function(d) { return    ((d[1] / scls[d[0]]) * 9)  + 0.5 ; })
 			.style("fill", function(d) { return c(j); });
 
 		text

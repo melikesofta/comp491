@@ -1,5 +1,6 @@
 <html>
 <head>
+	<meta charset="UTF-8">
 	<style>
 
 		body {
@@ -12,10 +13,18 @@
 			stroke: #fff;
 			shape-rendering: crispEdges;
 		}
+		.tick line {
+			stroke: #444;
+		}
 
 		.dot {
 			stroke: rgba(0, 0, 0, 0.3);
 			fill: rgba(200,250,200, 0.9);
+
+		}
+		.dot-highlighted {
+			stroke: rgba(0, 0, 0, 0.3);
+			fill: #f00;
 
 		}
 		svg *{
@@ -25,8 +34,7 @@
 		span.tooltip {
 			position: absolute;
 			text-align: center;
-			height: 28px;
-			padding: 2px;
+			padding: 9px;
 			font: 12px sans-serif;
 			background: lightsteelblue;
 			border: 0px;
@@ -36,10 +44,45 @@
 
 	</style>
 </head>
-<body style="padding-left: 328px" bgcolor="#353535">
+<body style="font-family: 'Avenir Next';font-weight: 100; line-height: 29px; padding-left: 328px; max-width: 1300px" bgcolor="#353535">
+<h1 style="font-family: 'Avenir Next'; color: #ddd; font-size: 99px; margin-top: 100px">INFLUENCE</h1>
+<div style="color: white; font-size: 16px">
+	<p style="text-align: justify">Yaygın inancın tersine, Lorem Ipsum rastgele sözcüklerden oluşmaz. Kökleri M.Ö. 45 tarihinden bu yana klasik Latin edebiyatına kadar uzanan 2000 yıllık bir geçmişi vardır. Virginia'daki Hampden-Sydney College'dan Latince profesörü Richard McClintock, bir Lorem Ipsum pasajında geçen ve anlaşılması en güç sözcüklerden biri olan 'consectetur' sözcüğünün klasik edebiyattaki örneklerini incelediğinde kesin bir kaynağa ulaşmıştır. Lorm Ipsum, Çiçero tarafından M.Ö. 45 tarihinde kaleme alınan "de Finibus Bonorum et Malorum" (İyi ve Kötünün Uç Sınırları) eserinin 1.10.32 ve 1.10.33 sayılı bölümlerinden gelmektedir. Bu kitap, ahlak kuramı üzerine bir tezdir ve Rönesans döneminde çok popüler olmuştur. Lorem Ipsum pasajının ilk satırı olan "Lorem ipsum dolor sit amet" 1.10.32 sayılı bölümdeki bir satırdan gelmektedir. </p>
+	<p style="text-align: justify">1500'lerden beri kullanılmakta olan standard Lorem Ipsum metinleri ilgilenenler için yeniden üretilmiştir. Çiçero tarafından yazılan 1.10.32 ve 1.10.33 bölümleri de 1914 H. Rackham çevirisinden alınan İngilizce sürümleri eşliğinde özgün biçiminden yeniden üretilmiştir.</p>
+	<p style="text-align: justify">Yaygın inancın tersine, Lorem Ipsum rastgele sözcüklerden oluşmaz. Kökleri M.Ö. 45 tarihinden bu yana klasik Latin edebiyatına kadar uzanan 2000 yıllık bir geçmişi vardır. Virginia'daki Hampden-Sydney College'dan Latince profesörü Richard McClintock, bir Lorem Ipsum pasajında geçen ve anlaşılması en güç sözcüklerden biri olan 'consectetur' sözcüğünün klasik edebiyattaki örneklerini incelediğinde kesin bir kaynağa ulaşmıştır. Lorm Ipsum, Çiçero tarafından M.Ö. 45 tarihinde kaleme alınan "de Finibus Bonorum et Malorum" (İyi ve Kötünün Uç Sınırları) eserinin 1.10.32 ve 1.10.33 sayılı bölümlerinden gelmektedir. Bu kitap, ahlak kuramı üzerine bir tezdir ve Rönesans döneminde çok popüler olmuştur. Lorem Ipsum pasajının ilk satırı olan "Lorem ipsum dolor sit amet" 1.10.32 sayılı bölümdeki bir satırdan gelmektedir. </p>
+	<p style="text-align: justify">1500'lerden beri kullanılmakta olan standard Lorem Ipsum metinleri ilgilenenler için yeniden üretilmiştir. Çiçero tarafından yazılan 1.10.32 ve 1.10.33 bölümleri de 1914 H. Rackham çevirisinden alınan İngilizce sürümleri eşliğinde özgün biçiminden yeniden üretilmiştir.</p>
+
+</div>
 
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script>
+
+	// https://github.com/wbkd/d3-extended
+	d3.selection.prototype.moveToFront = function() {
+		return this.each(function(){
+			this.parentNode.appendChild(this);
+		});
+	};
+	d3.selection.prototype.moveToBack = function() {
+		return this.each(function() {
+			var firstChild = this.parentNode.firstChild;
+			if (firstChild) {
+				this.parentNode.insertBefore(this, firstChild);
+			}
+		});
+	};
+
+	String.prototype.titleCase = function(){
+		return this.split(' ').map(function (s) {
+			return s.slice(0, 1).toUpperCase() + s.slice(1).toLowerCase();
+		}).join(' ')
+	};
+
+
+	String.prototype.slagify = function(){
+		return this.split(" ").join("-").split('"').join()
+	};
+
 
 	function ppp (x_a, y_a){
 		var div = d3.select("body").append("span")
@@ -60,10 +103,13 @@
 
 		var xAxis = d3.svg.axis()
 				.scale(x)
+				.innerTickSize(-height)
 				.orient("bottom");
 
 		var yAxis = d3.svg.axis()
 				.scale(y)
+				.innerTickSize(-width)
+
 				.orient("left");
 
 		var svg = d3.select("body").append("svg")
@@ -71,6 +117,12 @@
 				.attr("height", height + margin.top + margin.bottom)
 				.append("g")
 				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+		tableSpan = function(engagement, activity, relevancy){
+			return "<br><b>Engagement:</b> " + engagement
+			 +     "<br><b>Activity:</b> " + activity
+			 +     "<br><b>Relevancy:</b> " + relevancy
+		}
 
 		d3.dsv(';')("11-scatter-social.csv", function(error, data) {
 			if (error) throw error;
@@ -86,7 +138,7 @@
 
 			svg.append("g")
 					.attr("class", "x axis")
-					.attr("transform", "translate(0," + height + ")")
+					.attr("transform", "translate(0," + (height -1) + ")")
 					.call(xAxis)
 					.append("text")
 					.attr("class", "label")
@@ -106,24 +158,30 @@
 					.style("text-anchor", "end")
 					.text(y_a)
 
+
+
 			svg.selectAll(".dot")
 					.data(data)
 					.enter().append("circle")
 					.attr("class", "dot")
 					.attr("r", 3.5)
 					.attr("cx", function(d) { return x(d[x_a]); })
+					.attr("data-name", function(d) { return d.title.slagify(); })
 					.attr("cy", function(d) { return y(d[y_a]); })
 					.on("mouseover", function(d) {
+						d3.selectAll("circle[data-name=\"" + d.title.slagify() + "\"]").classed("dot-highlighted", true);
+						d3.selectAll("circle[data-name=\"" + d.title.slagify() + "\"]").moveToFront();
 						div.transition()
 								.duration(200)
 								.style("opacity", .9);
-						div	.html(d.title.split(' ').map(function (s) {
-									return s.slice(0, 1).toUpperCase() + s.slice(1).toLowerCase();
-								}).join(' '))
-								.style("left", (d3.event.pageX - 30) + "px")
-								.style("top", (d3.event.pageY - 28) + "px");
+						div	.html(d.title.titleCase() + tableSpan(d.engagement, d.activity, d.relevancy))
+								.style("left", (d3.event.pageX - 4) + "px")
+								.style("top", (d3.event.pageY - 85) + "px");
 					})
 					.on("mouseout", function(d) {
+						d3.selectAll("circle[data-name=\"" + d.title.slagify() + "\"]").classed("dot-highlighted", false);
+
+
 						div.transition()
 								.duration(500)
 								.style("opacity", 0);
