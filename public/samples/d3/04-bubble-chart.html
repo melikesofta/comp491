@@ -12,44 +12,59 @@
         }
 
         .slider-tick-label {
-            padding-top: 30px;
+            padding-top: 10px;
             color: white;
         }
+        .slider-tick-label a{
+            color: white;
+            border-bottom: 1px dashed white;
+        }
         .slider-tick-label-container {
-            padding-top: 30px;
+            padding-top: 10px;
             color: white;
         }
     </style>
-    <link rel="stylesheet" href="http://seiyria.com/bootstrap-slider/css/bootstrap-slider.css">
 </head>
-<body style="padding-left: 328px" bgcolor="#353535">
+<body style="padding-left: 328px; background: #353535!important;" bgcolor="#353535">
 
 <svg id="bubble"></svg>
 <div style="margin-left: 20px">
     <input id="ex13" type="text" style="width: 800px"/>
+<br>
+<br>
+    <p align=center><a href="#"  style="color:white;"  onclick="start_play()">PLAY</a></p>
+
 </div>
+ <br>
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="04-eksi-data.js" charset="utf-8"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
 <script src="assets/bootstrap-slider.min.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="assets/bootstrap.min.css">
+<link rel="stylesheet" href="assets/bootstrap-slider.min.css">
 
 <script type="text/javascript">
 
 
+    //Width and height
+    SPEED = 2000;
+    var diameter = 900;
+
+
+
+    var w = diameter;
+    var h = diameter;
+    var COUNTER = 30;
+
+
+
     function xyz() {
-        val = Math.random() * 1000 + 1000
+        val = Math.random() * 2 *  diameter + diameter
         sign = Math.sign(0.5 - Math.random())
 
         return sign * val
     }
-
-    //Width and height
-    var w = 900;
-    var h = 900;
-    var diameter = 900;
-    var COUNTER = 30;
-
 
     var svg = d3.select("#bubble")
             .attr("width", diameter)
@@ -151,7 +166,7 @@
                 .style("fill", function (d) {
                     return color(d.value);
                 })
-                .transition().duration(2000)
+                .transition().duration(SPEED)
                 .attr("cx", function (d) {
                     return d.x;
                 })
@@ -176,7 +191,7 @@
                     return 2 * d.r
                 })
 
-        foreign.transition().duration(2000)
+        foreign.transition().duration(SPEED)
                 .attr("cx", function (d) {
                     return d.x;
                 })
@@ -233,9 +248,40 @@
                 })
 
         handleEnter(bubbles.enter());
-        handleTransition(bubbles.transition().duration(3000));
-        handleExit(bubbles.exit().transition().duration(3000));
-        bubbles.exit().transition().delay(3100).remove()
+        handleTransition(bubbles.transition().duration(SPEED));
+        handleExit(bubbles.exit().transition().duration(SPEED));
+        bubbles.exit().transition().delay(SPEED + 100).remove()
+    }
+    function from_to(from, to) {
+        $.get("http://46.101.191.16:8011/?from=" + from + "&to=" + to, function(data){
+            result = data.result;
+
+
+            var color = d3.scale.category10();
+
+            var data = result.map(function (x) {
+                x.g_x = xyz();
+                x.g_y = xyz();
+                return x
+            });
+
+            var nodes = bubble.nodes({children: data}).filter(function (d) {
+                return !d.children;
+            });
+
+            var bubbles = svg.selectAll("g.bubble")
+                    .data(nodes, function (x) {
+                        return x.name
+                    })
+
+            handleEnter(bubbles.enter());
+            handleTransition(bubbles.transition().duration(SPEED));
+            handleExit(bubbles.exit().transition().duration(SPEED));
+            bubbles.exit().transition().delay(SPEED + 100).remove()
+
+
+        });
+
     }
 
 
@@ -265,19 +311,90 @@
     //        }
     //    })
 
-
+    var min=24000+1;
+    var max=24012+1;
+    var t;
+    var slider;
     $(function () {
-        $("#ex13").slider({
-            ticks: [1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016],
-            ticks_labels: [1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016],
-            ticks_snap_bounds: 1,
-        }).on('change', function (x) {
-            go2(x.value.newValue);
-        }).on('ready', function (x) {
-            $(".slider-tick-label").css("padding-top", 50);
+        console.log("asd1");
+        slider = new Slider("#ex13", {
+            ticks:            [23990, 24000, 24012, 24024, 24036, 24048, 24060, 24072, 24084, 24096, 24108, 24120, 24132, 24144, 24156, 24168, 24180, 24192, 24203].map(function(doc){return doc+1}),
+            ticks_positions:  [0, 5, 11, 16, 22, 28, 33, 39, 44, 50, 56, 61, 67, 72, 78, 84, 89, 95, 100],
+            ticks_labels:     [1999,  2000,  2001,  2002,  2003,  2004,  2005,  2006,  2007,  2008,  2009,  2010,  2011 , 2012,  2013,  2014,  2015,  2016, ".."].map(function(doc){return "<a onclick='set_year(%%);' href='#'>%%</a>".replace("%%", doc).replace("%%", doc)}),
+
+            value: [min, max],
+            formatter: function(value ) {
+                if(!Array.isArray(value))
+                    return value;
+
+                function x(val){
+                    yil = Math.floor((+val-1)/12);
+                    ay = (+val-1) % 12  ;
+                    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                    return months[ay] + " " + yil
+                }
+                return  x(value[0]) + " to "+ x(value[1]) ;
+            }
+        }).on('slideStop', function (x) {
+            t=x;
+            a = +x[0];
+            b = +x[1];
+            min_x= Math.min(a,b);
+            max_x= Math.max(a,b);
+            if(min_x != min ||  max_x != max){
+                min = min_x;
+                max = max_x;
+                from_to(min, max)
+                console.log("from=" + min +" to=" + max);
+            }
+
         })
         go2(1999)
     });
+
+    function set_year(year){
+        setTimeout(function(){
+            slider.setValue([year*12 + 1,year*12+12],true)
+            slider._trigger("slideStop", [year*12+1,year*12+12])
+        }, 200);
+    }
+    var min_play;
+    var max_play;
+    function play(){
+
+    	if(min_play == min && max_play == max){
+        setTimeout(function(){
+        	if(min_play == min && max_play == max && max <= 24203){
+        	min+=1;
+        	max+=1;
+        	min_play = min;
+        	max_play = max;
+            slider.setValue([min, max],true)
+            slider._trigger("slideStop", [min, max])
+            from_to(min, max)
+            play();
+        }
+        }, SPEED * 1.5 + 100);
+        console.info("starting;");
+        } else {
+        console.warning("not starting;");
+        }
+    };
+
+    function start_play(){
+    	min_play  = min;
+    	max = Math.min(max, min+48);
+    	max_play = max;
+    	play();
+    }
+
+    var force = d3.layout.force()
+            .nodes(nodes)
+            .size([width, height])
+            .gravity(.02)
+            .charge(0)
+            .on("tick", tick)
+            .start();
 
 
 </script>
