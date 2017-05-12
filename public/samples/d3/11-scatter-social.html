@@ -42,19 +42,80 @@
 			pointer-events: none;
 		}
 
+		div.equation {
+			padding: 0 50px 0 0;
+		}
+
+		p {
+			text-align: justify;
+		}
+		.caption {
+			padding: 0 9%;
+			color: white;
+			font-size: 16px
+		}
+
 	</style>
 </head>
 <body style="font-family: 'Avenir Next';font-weight: 100; line-height: 29px; padding-left: 328px; max-width: 1300px" bgcolor="#353535">
 <h1 style="font-family: 'Avenir Next'; color: #ddd; font-size: 99px; margin-top: 100px">INFLUENCE</h1>
-<div style="color: white; font-size: 16px">
-	<p style="text-align: justify">Yaygın inancın tersine, Lorem Ipsum rastgele sözcüklerden oluşmaz. Kökleri M.Ö. 45 tarihinden bu yana klasik Latin edebiyatına kadar uzanan 2000 yıllık bir geçmişi vardır. Virginia'daki Hampden-Sydney College'dan Latince profesörü Richard McClintock, bir Lorem Ipsum pasajında geçen ve anlaşılması en güç sözcüklerden biri olan 'consectetur' sözcüğünün klasik edebiyattaki örneklerini incelediğinde kesin bir kaynağa ulaşmıştır. Lorm Ipsum, Çiçero tarafından M.Ö. 45 tarihinde kaleme alınan "de Finibus Bonorum et Malorum" (İyi ve Kötünün Uç Sınırları) eserinin 1.10.32 ve 1.10.33 sayılı bölümlerinden gelmektedir. Bu kitap, ahlak kuramı üzerine bir tezdir ve Rönesans döneminde çok popüler olmuştur. Lorem Ipsum pasajının ilk satırı olan "Lorem ipsum dolor sit amet" 1.10.32 sayılı bölümdeki bir satırdan gelmektedir. </p>
-	<p style="text-align: justify">1500'lerden beri kullanılmakta olan standard Lorem Ipsum metinleri ilgilenenler için yeniden üretilmiştir. Çiçero tarafından yazılan 1.10.32 ve 1.10.33 bölümleri de 1914 H. Rackham çevirisinden alınan İngilizce sürümleri eşliğinde özgün biçiminden yeniden üretilmiştir.</p>
-	<p style="text-align: justify">Yaygın inancın tersine, Lorem Ipsum rastgele sözcüklerden oluşmaz. Kökleri M.Ö. 45 tarihinden bu yana klasik Latin edebiyatına kadar uzanan 2000 yıllık bir geçmişi vardır. Virginia'daki Hampden-Sydney College'dan Latince profesörü Richard McClintock, bir Lorem Ipsum pasajında geçen ve anlaşılması en güç sözcüklerden biri olan 'consectetur' sözcüğünün klasik edebiyattaki örneklerini incelediğinde kesin bir kaynağa ulaşmıştır. Lorm Ipsum, Çiçero tarafından M.Ö. 45 tarihinde kaleme alınan "de Finibus Bonorum et Malorum" (İyi ve Kötünün Uç Sınırları) eserinin 1.10.32 ve 1.10.33 sayılı bölümlerinden gelmektedir. Bu kitap, ahlak kuramı üzerine bir tezdir ve Rönesans döneminde çok popüler olmuştur. Lorem Ipsum pasajının ilk satırı olan "Lorem ipsum dolor sit amet" 1.10.32 sayılı bölümdeki bir satırdan gelmektedir. </p>
-	<p style="text-align: justify">1500'lerden beri kullanılmakta olan standard Lorem Ipsum metinleri ilgilenenler için yeniden üretilmiştir. Çiçero tarafından yazılan 1.10.32 ve 1.10.33 bölümleri de 1914 H. Rackham çevirisinden alınan İngilizce sürümleri eşliğinde özgün biçiminden yeniden üretilmiştir.</p>
+<div style="color: white; font-size: 20px">
+	<p>In social network analysis, the behavior of the users are modeled and mathematically defined. 
+		For example, for Twitter, the importance of geographical distance between users were analyzed<sup>1</sup>; for Pinterest, the influences 
+		of each board and user were expressed in terms of their re-pins and the number of interacting users<sup> 2</sup>.
+		As Ekşi Sözlük is more content-oriented than user-oriented, we chose to define our metrics such that they will provide us 
+		with the influence information for each <i>topic</i> in the dataset.
+	</p>
+	<p>We defined 3 variables which sum up the properties of a topic:</p>
 
+
+<div style="display: flex">
+<div class="equation"><math display="block">
+  <mi>Relevancy</mi> <mo>=</mo>
+  <mrow><mfrac><mrow><msub><mtext>(# of hrefs)</mtext><mi>t</mi></msub></mrow>
+  <mrow><mtext>max(# of hrefs)</mtext></mrow></mfrac></mrow>
+</math></div>
+<div class="equation"><math display="block">
+  <mi>Engagement</mi> <mo>=</mo>
+  <mrow><mfrac><mrow><msub><mtext>(# of authors)</mtext><mi>t</mi></msub></mrow>
+  <mrow><mtext>max(# of authors)</mtext></mrow></mfrac></mrow>
+</math></div>
+<div class="equation"><math display="block">
+  <mi>Activity</mi> <mo>=</mo>
+  <mrow><mfrac><mrow><msub><mtext>(# of entries)</mtext><mi>t</mi></msub></mrow>
+  <mrow><mtext>max(# of entries)</mtext></mrow></mfrac></mrow>
+</math></div>
+</div>
+
+</div>
+<div class="graphs"></div>
+<div>
+	<span class="caption">Relevancy vs. Engagement</span>
+	<span class="caption">Relevancy vs. Activity</span>
+	<span class="caption">Engagement vs. Activity</span>
+</div>
+
+<div style="color: white; font-size: 20px">
+
+	<p style="font-size:14px">
+		<sup>1 </sup>Y. Takhteyev, A. Gruzd, B. Wellman, "Geography of Twitter networks", <i>Social Networks</i>, vol. 34, pp. 73-81, 2012.
+		<br>
+		<sup>2 </sup> Z. Zhu, J. Su, L. Kong, “Measuring influence in online social network based on the user-content
+bipartite graph”, <i>Computers in Human Behavior</i>, vol. 52, pp. 184-189, Nov. 2015.
+	</p>
 </div>
 
 <script src="//d3js.org/d3.v3.min.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  CommonHTML: {
+    scale: 120
+  }
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
 <script>
 
 	// https://github.com/wbkd/d3-extended
@@ -85,7 +146,7 @@
 
 
 	function ppp (x_a, y_a){
-		var div = d3.select("body").append("span")
+		var div = d3.select(".graphs").append("span")
 				.attr("class", "tooltip")
 				.style("opacity", 0);
 
@@ -112,11 +173,11 @@
 
 				.orient("left");
 
-		var svg = d3.select("body").append("svg")
+		var svg = d3.select(".graphs").append("svg")
 				.attr("width", width + margin.left + margin.right)
 				.attr("height", height + margin.top + margin.bottom)
 				.append("g")
-				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+				.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
 		tableSpan = function(engagement, activity, relevancy){
 			return "<br><b>Engagement:</b> " + engagement
